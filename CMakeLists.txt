@@ -4,11 +4,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(main VERSION 1.0)
 
-add_executable(main main.cpp 
+add_executable(
+    main 
+    main.cpp 
     src/value_timestamp_tuple.cpp 
     src/timebased_key_value_store.cpp
     )
 
-target_include_directories(main PUBLIC 
+target_include_directories(
+    main 
+    PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     )
