@@ -5,7 +5,7 @@
 #include "value_timestamp_tuple.hpp"
 
 /**
- * A Timebase Key Value Database Store.
+ * A Timebased Key Value Database Store.
  *
  * Stores the history of values assigned to a particular key using timestamps.
  * Allows retrieval of value assigned to a key at or just before a particular timestamp.
