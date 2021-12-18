@@ -4,9 +4,6 @@
 #include <string>
 
 template <class V>
-ValueTimestampTuple<V>::ValueTimestampTuple() = default;
-
-template <class V>
 int ValueTimestampTuple<V>::size() {
     assert(this->timestamps.size() == this->values.size());
     return this->timestamps.size();

@@ -1,9 +1,6 @@
 #include "timebased_key_value_store.h"
 
 template <class K, class V>
-TimeBasedKeyValueStore<K, V>::TimeBasedKeyValueStore() = default;
-
-template <class K, class V>
 V TimeBasedKeyValueStore<K, V>::get(K key, int timestamp) {
     V ans = this->keysToValueTimestampTupleMapping[key].get(timestamp);
     return ans;
