@@ -3,16 +3,16 @@
 #include <cassert>
 #include <string>
 
-template <typename V>
+template <class V>
 ValueTimestampTuple<V>::ValueTimestampTuple() = default;
 
-template <typename V>
+template <class V>
 int ValueTimestampTuple<V>::size() {
     assert(this->timestamps.size() == this->values.size());
     return this->timestamps.size();
 }
 
-template <typename V>
+template <class V>
 int ValueTimestampTuple<V>::searchFloorTimestampIndex(int timestamp) {
     int leftPointer = 0, rightPointer = this->size() - 1;
     while (leftPointer <= rightPointer) {
@@ -28,13 +28,13 @@ int ValueTimestampTuple<V>::searchFloorTimestampIndex(int timestamp) {
     return rightPointer;
 }
 
-template <typename V>
+template <class V>
 void ValueTimestampTuple<V>::setValueAtTimestamp(V value, int timestamp) {
     assert(this->timestamps.size() == this->values.size());
     this->values.push_back(value), this->timestamps.push_back(timestamp);
 }
 
-template <typename V>
+template <class V>
 V ValueTimestampTuple<V>::getValueAtTimestamp(int timestamp) {
     int index = this->searchFloorTimestampIndex(timestamp);
     if (index < 0 or index >= timestamps.size()) {

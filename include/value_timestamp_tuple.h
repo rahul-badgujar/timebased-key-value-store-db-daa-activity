@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-template <typename V>
+template <class V>
 class ValueTimestampTuple {
    private:
     std::vector<V> values;
