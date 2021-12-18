@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "no_update_history_found_exception.hpp"
+
 /**
  * Values history storage.
  * Stores values with timestamps to maintain history of value updates.
@@ -47,7 +49,7 @@ class ValueTimestampTuple {
      * @param timestamp The timestamp value.
      * @return V The value required.
      *
-     * @throws string Throws if no such value exists.
+     * @throws NoUpdateHistoryFoundException Thrown if no such value exists.
      */
     V getValueAtTimestamp(int timestamp);
 
@@ -123,7 +125,8 @@ V ValueTimestampTuple<V>::getValueAtTimestamp(int timestamp) {
     // See if index is valid or not.
     if (index < 0 or index >= timestamps.size()) {
         // If index is not valid, throw error.
-        throw "No value exists for or before given timestamp " + std::to_string(timestamp);
+        std::string message = "No value exists for or before given timestamp " + std::to_string(timestamp);
+        throw NoUpdateHistoryFoundException(message);
     }
     // Return value corresponding to the index.
     return this->values[index];

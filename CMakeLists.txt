@@ -7,6 +7,8 @@ project(main VERSION 1.0)
 add_executable(
     main 
     main.cpp 
+    src/exception.cpp
+    src/no_update_history_found_exception.cpp
     )
 
 target_include_directories(
