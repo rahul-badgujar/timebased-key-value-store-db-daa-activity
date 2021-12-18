@@ -15,5 +15,5 @@ class NoUpdateHistoryFoundException : public Exception {
     NoUpdateHistoryFoundException();
 
     /// Ctor accepting custom error message.
-    NoUpdateHistoryFoundException(std::string message);
+    NoUpdateHistoryFoundException(const std::string &message);
 };

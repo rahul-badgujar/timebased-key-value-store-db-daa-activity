@@ -1,6 +1,6 @@
 #include "exception.hpp"
 
-Exception::Exception(std::string message) : message(message) {
+Exception::Exception(const std::string &message) : message(message) {
     // ctor
 }
 

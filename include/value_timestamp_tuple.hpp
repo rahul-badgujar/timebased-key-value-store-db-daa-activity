@@ -27,7 +27,7 @@ class ValueTimestampTuple {
      * @param timestamp The timestamp at or just before which the value update history is required.
      * @return int The index of corresponding value update history in values list.
      */
-    int searchFloorTimestampIndex(int timestamp);
+    int searchFloorTimestampIndex(const int &timestamp);
 
    public:
     /// ctor
@@ -41,7 +41,7 @@ class ValueTimestampTuple {
      * @param value The value to be set.
      * @param timestamp The timestamp corresponding to which value is to be set.
      */
-    void setValueAtTimestamp(V value, int timestamp);
+    void setValueAtTimestamp(const V &value, const int &timestamp);
 
     /**
      * Get the value updated at or just before given timestamp.
@@ -51,7 +51,7 @@ class ValueTimestampTuple {
      *
      * @throws NoUpdateHistoryFoundException Thrown if no such value exists.
      */
-    V getValueAtTimestamp(int timestamp);
+    V getValueAtTimestamp(const int &timestamp);
 
     /**
      * Get the length of value update histories stored.
@@ -82,7 +82,7 @@ int ValueTimestampTuple<V>::size() {
 }
 
 template <class V>
-int ValueTimestampTuple<V>::searchFloorTimestampIndex(int timestamp) {
+int ValueTimestampTuple<V>::searchFloorTimestampIndex(const int &timestamp) {
     // Using binary search two pointer method for efficient search.
     int leftPointer = 0, rightPointer = this->size() - 1;
 
@@ -111,7 +111,7 @@ int ValueTimestampTuple<V>::searchFloorTimestampIndex(int timestamp) {
 }
 
 template <class V>
-void ValueTimestampTuple<V>::setValueAtTimestamp(V value, int timestamp) {
+void ValueTimestampTuple<V>::setValueAtTimestamp(const V &value, const int &timestamp) {
     // The size of timestamps and values list should be same.
     assert(this->timestamps.size() == this->values.size());
     // Add value update history with timestamp to corresponding lists.
@@ -119,7 +119,7 @@ void ValueTimestampTuple<V>::setValueAtTimestamp(V value, int timestamp) {
 }
 
 template <class V>
-V ValueTimestampTuple<V>::getValueAtTimestamp(int timestamp) {
+V ValueTimestampTuple<V>::getValueAtTimestamp(const int &timestamp) {
     // Get the index for corresponding value update history.
     int index = this->searchFloorTimestampIndex(timestamp);
     // See if index is valid or not.

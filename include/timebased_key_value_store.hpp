@@ -32,7 +32,7 @@ class TimeBasedKeyValueStore {
      * @param value The value to be updated for given key.
      * @param timestamp The timestamp at which the set/update operation is being performed.
      * */
-    void set(K key, V value, int timestamp);
+    void set(const K &key, const V &value, const int &timestamp);
 
     /**
      * Get the value associated with key updated at or just before given timestamp.
@@ -43,7 +43,7 @@ class TimeBasedKeyValueStore {
      *
      * @throws string Thrown if no any value matches the given requirements, exception is thrown.
      */
-    V get(K key, int timestamp);
+    V get(const K &key, const int &timestamp);
 };
 
 template <class K, class V>
@@ -58,7 +58,7 @@ TimeBasedKeyValueStore<K, V>::~TimeBasedKeyValueStore() {
 }
 
 template <class K, class V>
-V TimeBasedKeyValueStore<K, V>::get(K key, int timestamp) {
+V TimeBasedKeyValueStore<K, V>::get(const K &key, const int &timestamp) {
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
     // Get the required value.
@@ -68,7 +68,7 @@ V TimeBasedKeyValueStore<K, V>::get(K key, int timestamp) {
 }
 
 template <class K, class V>
-void TimeBasedKeyValueStore<K, V>::set(K key, V value, int timestamp) {
+void TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value, const int &timestamp) {
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
     // Set the value at timestamp.

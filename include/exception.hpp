@@ -13,7 +13,7 @@ class Exception {
 
    public:
     // parameterized ctor
-    Exception(std::string message);
+    Exception(const std::string &message);
 
     /**
      * Get the error message for details about exception.

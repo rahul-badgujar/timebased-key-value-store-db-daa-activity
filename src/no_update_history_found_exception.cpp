@@ -6,6 +6,6 @@ NoUpdateHistoryFoundException::NoUpdateHistoryFoundException() : Exception(NoUpd
     // default ctor
 }
 
-NoUpdateHistoryFoundException::NoUpdateHistoryFoundException(std::string message) : Exception(message) {
+NoUpdateHistoryFoundException::NoUpdateHistoryFoundException(const std::string &message) : Exception(message) {
     // ctor
 }
