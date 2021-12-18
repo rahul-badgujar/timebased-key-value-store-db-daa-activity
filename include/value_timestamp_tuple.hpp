@@ -1,7 +1,23 @@
-#include "value_timestamp_tuple.h"
-
+#pragma once
 #include <cassert>
 #include <string>
+#include <vector>
+
+template <class V>
+class ValueTimestampTuple {
+   private:
+    std::vector<V> values;
+    std::vector<int> timestamps;
+
+    int searchFloorTimestampIndex(int timestamp);
+
+   public:
+    ValueTimestampTuple();
+    ~ValueTimestampTuple();
+    void setValueAtTimestamp(V value, int timestamp);
+    V getValueAtTimestamp(int timestamp);
+    int size();
+};
 
 template <class V>
 ValueTimestampTuple<V>::ValueTimestampTuple() {
