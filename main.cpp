@@ -8,7 +8,11 @@ int main() {
     db.set("key101", 5, 1);
     db.set("key102", 8, 2);
     db.set("key101", 6, 3);
-    int ans = db.get("key102", 1);
-    std::cout << "Value found is: " << ans << std::endl;
+    try {
+        int ans = db.get("key102", 1);
+        std::cout << "Value found is: " << ans << std::endl;
+    } catch (NoUpdateHistoryFoundException exception) {
+        std::cout << exception.getMessage() << std::endl;
+    }
     return 0;
 }

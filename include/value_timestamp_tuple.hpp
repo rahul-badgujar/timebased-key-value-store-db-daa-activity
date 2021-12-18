@@ -125,7 +125,7 @@ V ValueTimestampTuple<V>::getValueAtTimestamp(int timestamp) {
     // See if index is valid or not.
     if (index < 0 or index >= timestamps.size()) {
         // If index is not valid, throw error.
-        std::string message = "No value exists for or before given timestamp " + std::to_string(timestamp);
+        std::string message = "No value update history exists for or before given timestamp " + std::to_string(timestamp);
         throw NoUpdateHistoryFoundException(message);
     }
     // Return value corresponding to the index.
