@@ -20,11 +20,13 @@ class TimeBasedKeyValueStore {
     std::unordered_map<K, ValueTimestampTuple<V>> keysToValueTimestampTupleMapping;
 
    public:
+    /// ctor
     TimeBasedKeyValueStore();
+    /// dtor
     ~TimeBasedKeyValueStore();
 
     /**
-     * Set/Update the value for the given key, storing update timestamp info as well.
+     * Set the value for the given key, storing update timestamp info as well.
      *
      * @param key The key for which value is to be updated/set.
      * @param value The value to be updated for given key.
@@ -33,13 +35,13 @@ class TimeBasedKeyValueStore {
     void set(K key, V value, int timestamp);
 
     /**
-     * Get the value associated with key at or just before given timestamp.
+     * Get the value associated with key updated at or just before given timestamp.
      *
      * @param key The key for which corresponding value required.
      * @param timestamp The upper bound on timestamp on or just before which the value updated is required.
      * @return V: The value corresponding to given key and timestamp upper bound.
      *
-     * @throws string: if no any value matches the given requirements, exception is thrown.
+     * @throws string Thrown if no any value matches the given requirements, exception is thrown.
      */
     V get(K key, int timestamp);
 };
@@ -69,6 +71,6 @@ template <class K, class V>
 void TimeBasedKeyValueStore<K, V>::set(K key, V value, int timestamp) {
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
-    // Set/Update the value at timestamp.
+    // Set the value at timestamp.
     valueTimestampTupleCorrespondingGivenKey.setValueAtTimestamp(value, timestamp);
 }
