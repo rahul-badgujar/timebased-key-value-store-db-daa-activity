@@ -10,7 +10,9 @@ class ValueTimestampTuple {
     int searchFloorTimestampIndex(int timestamp);
 
    public:
-       void setValueAtTimestamp(V value, int timestamp);
+    ValueTimestampTuple();
+    ~ValueTimestampTuple();
+    void setValueAtTimestamp(V value, int timestamp);
     V getValueAtTimestamp(int timestamp);
     int size();
 };

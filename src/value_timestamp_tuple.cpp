@@ -4,6 +4,17 @@
 #include <string>
 
 template <class V>
+ValueTimestampTuple<V>::ValueTimestampTuple() {
+    // default ctor
+}
+
+template <class V>
+ValueTimestampTuple<V>::~ValueTimestampTuple() {
+    this->values.clear();
+    this->timestamps.clear();
+}
+
+template <class V>
 int ValueTimestampTuple<V>::size() {
     assert(this->timestamps.size() == this->values.size());
     return this->timestamps.size();

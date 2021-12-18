@@ -9,6 +9,8 @@ class TimeBasedKeyValueStore {
     std::unordered_map<K, ValueTimestampTuple<V>> keysToValueTimestampTupleMapping;
 
    public:
-        void set(K key, V value, int timestamp);
+    TimeBasedKeyValueStore();
+    ~TimeBasedKeyValueStore();
+    void set(K key, V value, int timestamp);
     V get(K key, int timestamp);
 };
