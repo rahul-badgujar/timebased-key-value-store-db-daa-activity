@@ -114,7 +114,7 @@ int TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value) {
 template <class K, class V>
 list<pair<V, int>> TimeBasedKeyValueStore<K, V>::getValueUpdatesHistory(const K &key) {
     // check if key exists in db
-    auto keyExists = this->keysToValueTimestampTupleMapping.find(key) == this->keysToValueTimestampTupleMapping.end();
+    auto keyExists = this->keysToValueTimestampTupleMapping.find(key) != this->keysToValueTimestampTupleMapping.end();
     if (!keyExists) {
         // return empty list
         return {};

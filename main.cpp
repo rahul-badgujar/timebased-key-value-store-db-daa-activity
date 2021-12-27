@@ -57,10 +57,10 @@ int main() {
                 auto history = db.getValueUpdatesHistory(key);
                 // case: if no history exists
                 if (history.empty()) {
-                    ConsoleIO::print("No update history found for given key.");
+                    ConsoleIO::println("No update history found for given key.");
                 } else {
                     for (auto [value, timestamp] : history) {
-                        ConsoleIO::print("Value = " + to_string(value) + " (was update at " + to_string(timestamp) + ")");
+                        ConsoleIO::println("Value = " + to_string(value) + " (was update at " + to_string(timestamp) + ")");
                     }
                 }
                 break;
