@@ -89,16 +89,12 @@ int TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value, const int &t
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
     // Set the value at timestamp.
-    valueTimestampTupleCorrespondingGivenKey.setValueAtTimestamp(value, timestamp);
-
-    return timestamp;
+    return valueTimestampTupleCorrespondingGivenKey.setValueAtTimestamp(value, timestamp);
 }
 
 template <class K, class V>
 int TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value) {
     // Get the current timestamp (seconds since epoch)
     auto timestamp = getSecondsSinceEpochTillNow();
-    this->set(key, value, timestamp);
-
-    return timestamp;
+    return this->set(key, value, timestamp);
 }

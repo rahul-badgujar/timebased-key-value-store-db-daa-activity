@@ -41,13 +41,13 @@ class ValueTimestampTuple {
      * @param value The value to be set.
      * @param timestamp The timestamp corresponding to which value is to be set.
      */
-    void setValueAtTimestamp(const V &value, const int &timestamp);
+    int setValueAtTimestamp(const V &value, const int &timestamp);
 
     /**
      * Get the value updated at or just before given timestamp.
      *
      * @param timestamp The timestamp value.
-     * @return V The value required.
+     * @param value The value required.
      *
      * @throws NoUpdateHistoryFoundException Thrown if no such value exists.
      */
@@ -111,11 +111,13 @@ int ValueTimestampTuple<V>::searchFloorTimestampIndex(const int &timestamp) {
 }
 
 template <class V>
-void ValueTimestampTuple<V>::setValueAtTimestamp(const V &value, const int &timestamp) {
+int ValueTimestampTuple<V>::setValueAtTimestamp(const V &value, const int &timestamp) {
     // The size of timestamps and values list should be same.
     assert(this->timestamps.size() == this->values.size());
     // Add value update history with timestamp to corresponding lists.
     this->values.push_back(value), this->timestamps.push_back(timestamp);
+
+    return timestamp;
 }
 
 template <class V>
