@@ -9,6 +9,7 @@ add_executable(
     main.cpp 
     src/exceptions/exception.cpp
     src/exceptions/no_update_history_found_exception.cpp
+    src/console_io.cpp
     )
 
 target_include_directories(
