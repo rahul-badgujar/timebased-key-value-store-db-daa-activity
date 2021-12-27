@@ -1,4 +1,4 @@
-#include "exception.hpp"
+#include "exceptions/exception.hpp"
 
 Exception::Exception(const std::string &message) : message(message) {
     // ctor

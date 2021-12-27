@@ -1,4 +1,4 @@
-#include "no_update_history_found_exception.hpp"
+#include "exceptions/no_update_history_found_exception.hpp"
 
 const std::string NoUpdateHistoryFoundException::DEFAULT_MESSAGE = "No update history could be found for given key and timestamp combination.";
 

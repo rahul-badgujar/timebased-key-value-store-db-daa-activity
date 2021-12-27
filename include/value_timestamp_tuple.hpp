@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "no_update_history_found_exception.hpp"
+#include "exceptions/no_update_history_found_exception.hpp"
 
 /**
  * Values history storage.
