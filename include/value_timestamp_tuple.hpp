@@ -2,9 +2,12 @@
 
 #include <cassert>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "exceptions/no_update_history_found_exception.hpp"
+
+using std::pair;
 
 /**
  * Values history storage.
@@ -51,7 +54,7 @@ class ValueTimestampTuple {
      *
      * @throws NoUpdateHistoryFoundException Thrown if no such value exists.
      */
-    V getValueAtTimestamp(const int &timestamp);
+    pair<V, int> getValueAtTimestamp(const int &timestamp);
 
     /**
      * Get the length of value update histories stored.
@@ -121,7 +124,7 @@ int ValueTimestampTuple<V>::setValueAtTimestamp(const V &value, const int &times
 }
 
 template <class V>
-V ValueTimestampTuple<V>::getValueAtTimestamp(const int &timestamp) {
+pair<V, int> ValueTimestampTuple<V>::getValueAtTimestamp(const int &timestamp) {
     // Get the index for corresponding value update history.
     int index = this->searchFloorTimestampIndex(timestamp);
     // See if index is valid or not.
@@ -131,5 +134,5 @@ V ValueTimestampTuple<V>::getValueAtTimestamp(const int &timestamp) {
         throw NoUpdateHistoryFoundException(message);
     }
     // Return value corresponding to the index.
-    return this->values[index];
+    return {this->values[index], this->timestamps[index]};
 }

@@ -60,7 +60,7 @@ class TimeBasedKeyValueStore {
      *
      * @throws string Thrown if no any value matches the given requirements, exception is thrown.
      */
-    V get(const K &key, const int &timestamp);
+    pair<V, int> get(const K &key, const int &timestamp);
 };
 
 template <class K, class V>
@@ -75,13 +75,11 @@ TimeBasedKeyValueStore<K, V>::~TimeBasedKeyValueStore() {
 }
 
 template <class K, class V>
-V TimeBasedKeyValueStore<K, V>::get(const K &key, const int &timestamp) {
+pair<V, int> TimeBasedKeyValueStore<K, V>::get(const K &key, const int &timestamp) {
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
-    // Get the required value.
-    V ans = valueTimestampTupleCorrespondingGivenKey.getValueAtTimestamp(timestamp);
-
-    return ans;
+    // Get the required value and timestamp; and return
+    return valueTimestampTupleCorrespondingGivenKey.getValueAtTimestamp(timestamp);
 }
 
 template <class K, class V>
