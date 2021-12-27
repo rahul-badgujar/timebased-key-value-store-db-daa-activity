@@ -1,16 +1,21 @@
 #include <iostream>
 #include <string>
 
+#include "console_io.hpp"
 #include "timebased_key_value_store.hpp"
 
 int main() {
     char optionSelected;
     do {
-        std::cout << "Timebased Key-Value Database Store" << std::endl;
-        std::cout << "A. Add/Update" << std::endl;
-        std::cout << "B. Retrieve" << std::endl;
-        std::cout << "Q. Quit" << std::endl;
+        ConsoleIO::println("Timebased Key-Value Database Store");
+        ConsoleIO::println("A. Add/Update");
+        ConsoleIO::println("B. Retrieve");
+        ConsoleIO::println("Q. Quit");
+        ConsoleIO::print("Select option: ");
+        optionSelected = ConsoleIO::input<char>();
+        //
 
     } while (optionSelected != 'Q');
-    return 0;
+
+    return EXIT_SUCCESS;
 }

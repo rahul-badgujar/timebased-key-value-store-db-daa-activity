@@ -4,6 +4,7 @@
 
 /// Fascilates Console based Input Output
 class ConsoleIO {
+   public:
     /// Prints a string to console.
     static void print(std::string message);
     /// Prints a string to console and moves to next line.

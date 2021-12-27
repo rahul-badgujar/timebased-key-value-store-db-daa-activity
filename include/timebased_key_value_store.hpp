@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 
+#include "utility_functions.hpp"
 #include "value_timestamp_tuple.hpp"
 
 /**
@@ -33,6 +34,16 @@ class TimeBasedKeyValueStore {
      * @param timestamp The timestamp at which the set/update operation is being performed.
      * */
     void set(const K &key, const V &value, const int &timestamp);
+
+    /**
+     * Set the value for the given key, storing update timestamp info as well.
+     * Current timestamp (as seconds since epoch) is considered here by default.
+     * To specify custom timestamp, use set(key,value,timestamp) method.
+     *
+     * @param key The key for which value is to be updated/set.
+     * @param value The value to be updated for given key.
+     * */
+    void set(const K &key, const V &value);
 
     /**
      * Get the value associated with key updated at or just before given timestamp.
@@ -69,6 +80,16 @@ V TimeBasedKeyValueStore<K, V>::get(const K &key, const int &timestamp) {
 
 template <class K, class V>
 void TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value, const int &timestamp) {
+    // Get the value-timestamp tuple corresponding to given key.
+    auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
+    // Set the value at timestamp.
+    valueTimestampTupleCorrespondingGivenKey.setValueAtTimestamp(value, timestamp);
+}
+
+template <class K, class V>
+void TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value) {
+    // Get the current timestamp (seconds since epoch)
+    auto timestamp = getSecondsSinceEpochTillNow();
     // Get the value-timestamp tuple corresponding to given key.
     auto &valueTimestampTupleCorrespondingGivenKey = this->keysToValueTimestampTupleMapping[key];
     // Set the value at timestamp.

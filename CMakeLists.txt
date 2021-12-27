@@ -10,6 +10,7 @@ add_executable(
     src/exceptions/exception.cpp
     src/exceptions/no_update_history_found_exception.cpp
     src/console_io.cpp
+    src/utility_functions.cpp
     )
 
 target_include_directories(
