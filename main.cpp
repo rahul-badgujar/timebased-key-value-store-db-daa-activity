@@ -9,6 +9,7 @@ using std::to_string;
 
 int main() {
     TimeBasedKeyValueStore<string, int> db;
+    // to store the menu option
     char optionSelected;
     do {
         // show menu
@@ -17,6 +18,7 @@ int main() {
         ConsoleIO::println("B. Retrieve");
         ConsoleIO::println("Q. Quit");
         ConsoleIO::print("Select option: ");
+        // get the input choice
         optionSelected = ConsoleIO::input<char>();
         // convert to upper case
         optionSelected = toupper(optionSelected);
@@ -41,14 +43,13 @@ int main() {
                     string key = ConsoleIO::input<string>();
                     ConsoleIO::print("Enter the timestamp: ");
                     int timestamp = ConsoleIO::input<int>();
-                    auto [value, timestamp] = db.get(key, timestamp);
-                    ConsoleIO::println("Value = " + to_string(value) + " (was updated at " + to_string(timestamp) + ")");
+                    auto [value, updateTimestamp] = db.get(key, timestamp);
+                    ConsoleIO::println("Value = " + to_string(value) + " (was updated at " + to_string(updateTimestamp) + ")");
                 } catch (const string& error) {
                     ConsoleIO::println(error);
                 } catch (const char* error) {
                     ConsoleIO::println(string(error));
                 }
-
                 break;
             }
             default: {
