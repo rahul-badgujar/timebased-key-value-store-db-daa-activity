@@ -16,6 +16,7 @@ int main() {
         ConsoleIO::println("Timebased Key-Value Database Store");
         ConsoleIO::println("A. Add/Update");
         ConsoleIO::println("B. Retrieve");
+        ConsoleIO::println("C. View History");
         ConsoleIO::println("Q. Quit");
         ConsoleIO::print("Select option: ");
         // get the input choice
@@ -45,10 +46,22 @@ int main() {
                     int timestamp = ConsoleIO::input<int>();
                     auto [value, updateTimestamp] = db.get(key, timestamp);
                     ConsoleIO::println("Value = " + to_string(value) + " (was updated at " + to_string(updateTimestamp) + ")");
-                } catch (const string& error) {
-                    ConsoleIO::println(error);
-                } catch (const char* error) {
-                    ConsoleIO::println(string(error));
+                } catch (NoUpdateHistoryFoundException& error) {
+                    ConsoleIO::println(error.getMessage());
+                }
+                break;
+            }
+            case 'C': {
+                ConsoleIO::print("Enter the key: ");
+                string key = ConsoleIO::input<string>();
+                auto history = db.getValueUpdatesHistory(key);
+                // case: if no history exists
+                if (history.empty()) {
+                    ConsoleIO::print("No update history found for given key.");
+                } else {
+                    for (auto [value, timestamp] : history) {
+                        ConsoleIO::print("Value = " + to_string(value) + " (was update at " + to_string(timestamp) + ")");
+                    }
                 }
                 break;
             }

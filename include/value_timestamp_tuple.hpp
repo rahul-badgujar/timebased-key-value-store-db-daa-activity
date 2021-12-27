@@ -1,13 +1,16 @@
 #pragma once
 
 #include <cassert>
+#include <list>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "exceptions/no_update_history_found_exception.hpp"
 
+using std::list;
 using std::pair;
+using std::vector;
 
 /**
  * Values history storage.
@@ -19,9 +22,9 @@ template <class V>
 class ValueTimestampTuple {
    private:
     /// List of values.
-    std::vector<V> values;
+    vector<V> values;
     /// List of timestamps corresponding to values index-wise.
-    std::vector<int> timestamps;
+    vector<int> timestamps;
 
     /**
      * To get the index of corresponding value in values list, updated at or just before given timestamp.
@@ -62,6 +65,13 @@ class ValueTimestampTuple {
      * @return int The length of value update histories stored.
      */
     int size();
+
+    /**
+     * Get the history as list of value-timestamp pairs.
+     *
+     * @return list<pair<V,int>> Returns the list of pairs of value-timestamp updates.
+     */
+    list<pair<V, int>> getValueUpdatesHistoryWithTimestamps(bool descending = true);
 };
 
 template <class V>
@@ -135,4 +145,25 @@ pair<V, int> ValueTimestampTuple<V>::getValueAtTimestamp(const int &timestamp) {
     }
     // Return value corresponding to the index.
     return {this->values[index], this->timestamps[index]};
+}
+
+template <class V>
+list<pair<V, int>> ValueTimestampTuple<V>::getValueUpdatesHistoryWithTimestamps(bool descending) {
+    // to store the history
+    list<pair<V, int>> valueTimestampPairs;
+
+    // process to form the history
+    int lengthOfList = this->size();
+    for (int i = 0; i < lengthOfList; ++i) {
+        auto value = this->values[i];
+        auto timestamp = this->timestamps[i];
+        valueTimestampPairs.push_back({value, timestamp});
+    }
+
+    if (descending) {
+        // reverse the list to maintain history in descending order
+        reverse(valueTimestampPairs.begin(), valueTimestampPairs.end());
+    }
+
+    return valueTimestampPairs;
 }

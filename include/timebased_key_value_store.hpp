@@ -1,9 +1,14 @@
 #pragma once
 
+#include <algorithm>
+#include <list>
 #include <unordered_map>
 
 #include "utility_functions.hpp"
 #include "value_timestamp_tuple.hpp"
+
+using std::list;
+using std::reverse;
 
 /**
  * A Timebased Key Value Database Store.
@@ -58,9 +63,18 @@ class TimeBasedKeyValueStore {
      * @param timestamp The upper bound on timestamp on or just before which the value updated is required.
      * @return V: The value corresponding to given key and timestamp upper bound.
      *
-     * @throws string Thrown if no any value matches the given requirements, exception is thrown.
+     * @throws NoUpdateHistoryFoundException Thrown if no any value matches the given requirements, exception is thrown.
      */
     pair<V, int> get(const K &key, const int &timestamp);
+
+    /**
+     * Get the history of value updates as list of [value,timestamp] in descending order, associated with key.
+     *
+     * @param key The key for which corresponding value required.
+     * @return list<pair<V,int>>: Returns the list of value-timestamp pairs.
+     *
+     */
+    list<pair<V, int>> getValueUpdatesHistory(const K &key);
 };
 
 template <class K, class V>
@@ -95,4 +109,19 @@ int TimeBasedKeyValueStore<K, V>::set(const K &key, const V &value) {
     // Get the current timestamp (seconds since epoch)
     auto timestamp = getSecondsSinceEpochTillNow();
     return this->set(key, value, timestamp);
+}
+
+template <class K, class V>
+list<pair<V, int>> TimeBasedKeyValueStore<K, V>::getValueUpdatesHistory(const K &key) {
+    // check if key exists in db
+    auto keyExists = this->keysToValueTimestampTupleMapping.find(key) == this->keysToValueTimestampTupleMapping.end();
+    if (!keyExists) {
+        // return empty list
+        return {};
+    }
+
+    // get the corresponding value timestamp tuple
+    auto valueTimestampTuple = this->keysToValueTimestampTupleMapping[key];
+
+    return valueTimestampTuple.getValueUpdatesHistoryWithTimestamps(true);
 }
